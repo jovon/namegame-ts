@@ -11,7 +11,7 @@
 	}
 }
 
-h1 {
+h1, h2 {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
@@ -24,20 +24,20 @@ h1 {
 }
 
 .face {
-	width: 30%;
+	width: 20%;
 	border-radius: 50%;
 	overflow: hidden;
 	margin: auto;
 	display: inline-block;
 }
 
-#name {
+/* #name {
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
 	width: 50%;
 	margin-top: 2%;
-}
+} */
 
 .history {
 	width: 100%;
@@ -67,4 +67,14 @@ h1 {
 
 button[disabled] {
 	border-color: red;
+	width: 10%;
+	margin-left: auto;
+	margin-right: auto;
 }
+
+button#next {
+	width: 10%;
+	margin-left: auto;
+	margin-right: auto;	
+}
+

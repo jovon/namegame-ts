@@ -63,7 +63,7 @@ class Face extends React.Component<FaceProps> {
                     className="face" 
                     id={this.props.value.index.toString()} 
                     onClick={() => this.props.onClick()} 
-                    disabled={false}
+                    disabled={this.props.disabled}
             >
                 <img src={this.props.value.img} />
             </button>
@@ -87,7 +87,6 @@ interface FacesProps {
 class Faces extends React.Component<FacesProps> {
     constructor(props: FacesProps) {
         super();
-
     }
     renderFace(i: number) {
         let imgLocation: string = '';
@@ -238,12 +237,7 @@ class Game extends React.Component<GameProps, State> {
     // Creates an object with the chosen people
     getChoices() {
         let maxChoices: number = 5;
-        let choicesIndexes: number[] = this.pickChoices(maxChoices, this.state.data.length);
-        let choices: Staff[] = [];
-        for (let i = 0; i < maxChoices; i++) {
-            choices.push(this.state.data[choicesIndexes[i]]);
-        }
-        
+        let choices: Staff[] = this.pickChoices(maxChoices);
         let answerIndex = this.pickAnswer(choices);
         this.setState({choices: choices, 
                        answer: {index: answerIndex, 
@@ -251,15 +245,18 @@ class Game extends React.Component<GameProps, State> {
                        });
 
     }
-    // Picks 5 random integers to be indexes of the items array
+    // Picks 5 random employees to be items array
     //   which represent the possibles choices.
-    pickChoices (maxChoices: number, maxIndex: number) {
-        let chosenIndexes: number[] = [];
+    pickChoices (maxChoices: number) {
+        let chosenIndexes: Staff[] = [];
+        var data: Staff[] = this.state.data.slice();
         while (chosenIndexes.length < maxChoices) {
-            let indx = this.pickRandomIndex(maxIndex);
-            if (!this.isChosen(indx, chosenIndexes)) {
-                chosenIndexes.push(indx);
-            }
+            let indx = this.pickRandomIndex(data.length - 1);
+            chosenIndexes.push(data[indx]);
+
+            // remove the staffer from the data
+            data.splice(indx, 1);
+            
         }
         return chosenIndexes;
     }
@@ -276,18 +273,11 @@ class Game extends React.Component<GameProps, State> {
         return this.pickRandomIndex(choices.length - 1); 
     }
 
-    // Was this index already chosen?
-    isChosen (indx: number, chosenIndexes: number[]) {
-        return undefined !== chosenIndexes.find(function(v: number) {
-            return v === indx;
-        });
-    }
-
     render() {
         return (
             <div className="game">
                 <div className="question">
-                    <h1>Who is?</h1>
+                    <h1>Who is?</h1> 
                     <Name value={this.state.answer || {}} />
                 </div>
                 <Faces value={this.state.choices || []} onClick={(i: number) => this.handleChoiceClick(i)}/>
