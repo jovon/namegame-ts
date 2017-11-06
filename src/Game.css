@@ -1,0 +1,70 @@
+#index-page, #container {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+@media screen and (min-width: 601px) {
+	.game {
+		width: 70%;
+		margin: auto;
+	}
+}
+
+h1 {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	margin-top: 5%;
+}
+
+.faces {
+	width: 100%;
+	text-align: center;
+}
+
+.face {
+	width: 30%;
+	border-radius: 50%;
+	overflow: hidden;
+	margin: auto;
+	display: inline-block;
+}
+
+#name {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	margin-top: 2%;
+}
+
+.history {
+	width: 100%;
+	margin: auto;
+	padding: 5px;
+	text-align: center;
+}
+
+@media screen and (max-width: 600px){
+	.game {
+		width: 100%;
+	}
+}
+
+#right {
+	color: green;
+	width: 100%;
+	display: inline-block;
+	font-size: 1.5em;
+}
+#wrong {
+	color: red;
+	width: 100%;
+	display: inline-block;
+	font-size: 1.5em;
+}
+
+button[disabled] {
+	border-color: red;
+}
