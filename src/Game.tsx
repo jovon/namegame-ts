@@ -220,6 +220,7 @@ class Game extends React.Component<GameProps, State> {
             } else {
                 wrongNum++;
             }
+            
             this.setState({
                             history: {
                                 right: rightNum, 
@@ -248,17 +249,17 @@ class Game extends React.Component<GameProps, State> {
     // Picks 5 random employees to be items array
     //   which represent the possibles choices.
     pickChoices (maxChoices: number) {
-        let chosenIndexes: Staff[] = [];
+        let chosen: Staff[] = [];
         var data: Staff[] = this.state.data.slice();
-        while (chosenIndexes.length < maxChoices) {
+        while (chosen.length < maxChoices) {
             let indx = this.pickRandomIndex(data.length - 1);
-            chosenIndexes.push(data[indx]);
+            chosen.push(data[indx]);
 
             // remove the staffer from the data
             data.splice(indx, 1);
             
         }
-        return chosenIndexes;
+        return chosen;
     }
 
     // Return a random integer with the index in the items array 
