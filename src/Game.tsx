@@ -48,7 +48,8 @@ interface Staff {
 }
 
 interface FaceProps {
-    value: {img: string; index: number};
+    value: Staff[];
+    index: number;
     disabled: boolean;
     onClick(): void;
 }
@@ -58,14 +59,15 @@ class Face extends React.Component<FaceProps> {
         super();
     }
     render() {
+        var imgLocation = this.props.value[0] !== undefined ? this.props.value[0].headshot.url : '';
         return(
             <button 
                     className="face" 
-                    id={this.props.value.index.toString()} 
+                    id={this.props.index.toString()} 
                     onClick={() => this.props.onClick()} 
                     disabled={this.props.disabled}
             >
-                <img src={this.props.value.img} />
+                <img src={imgLocation} />
             </button>
         );
     }
@@ -89,16 +91,14 @@ class Faces extends React.Component<FacesProps> {
         super();
     }
     renderFace(i: number) {
-        let imgLocation: string = '';
-        if (this.props.value) { 
-            if (this.props.value[i] !== undefined) {
-                imgLocation = this.props.value[i].headshot.url;
-            } else {
-                imgLocation = '';
-            }
-        }
-        let value = {img: imgLocation, index: i};
-        return <Face value={value} onClick={() => this.props.onClick(i)} disabled={false}/>;
+        return (
+                <Face 
+                    value={[this.props.value[i]]} 
+                    index={i} 
+                    onClick={() => this.props.onClick(i)} 
+                    disabled={false}
+                />
+        );
     }
     render() {
         return (
@@ -291,7 +291,8 @@ class Game extends React.Component<GameProps, State> {
                  </div>
                  <div className="next">
                      <Next 
-                        value={{img: '', index: -1}} 
+                        value={[]}
+                        index={-1}
                         onClick={() => this.handleNextClick()} 
                         disabled={this.state.disabled} 
                      />
