@@ -173,25 +173,28 @@ class Game extends React.Component<GameProps, State> {
     event() {
         var obj = this;
         return (e: KeyboardEvent) => {
-            if (e.keyCode === 49) {
-                obj.handleChoiceClick(0);
-            } 
-            if (e.keyCode === 50) {
-                obj.handleChoiceClick(1);
+            switch (e.keyCode) {
+                case 49:
+                    obj.handleChoiceClick(0);
+                    break;
+                case 50:
+                    obj.handleChoiceClick(1);
+                    break;
+                case 51:
+                    obj.handleChoiceClick(2);
+                    break;
+                case 52:
+                    obj.handleChoiceClick(3);
+                    break;
+                case 53:
+                    obj.handleChoiceClick(4);
+                    break;
+                case 13:
+                    obj.handleNextClick();
+                    break;
+                default:
+                    break;
             }
-            if (e.keyCode === 51) {
-                obj.handleChoiceClick(2);
-            } 
-            if (e.keyCode === 52) {
-                obj.handleChoiceClick(3);
-            } 
-            if (e.keyCode === 53) {
-                obj.handleChoiceClick(4);
-            } 
-            if (e.keyCode === 13) {
-                obj.handleNextClick();
-            }
-
         };
     }
 
@@ -204,7 +207,7 @@ class Game extends React.Component<GameProps, State> {
                         this.getChoices();
                     });
 
-        window.addEventListener('keyup', this.event);
+        window.addEventListener('keyup', this.event());
     }
     componentWillUnmount() {
         window.removeEventListener('keyup');
